@@ -137,7 +137,7 @@ SIMON-TECH-EMPIRE
 │   ├── utils/            # Utility functions
 │   └── index.js          # Entry point
 ├── .env.example         # Environment template
-├── package.json         # Dependencies
+├─�� package.json         # Dependencies
 └── README.md            # This file
 ```
 
