@@ -2,12 +2,11 @@
 
 **Futuristic Anime AI Bot** | Verified by Simon Tech | Simon Tech Empire
 
-A powerful WhatsApp bot that can be controlled and paired through Telegram with **200+ commands** organized in **20+ categories**.
+A powerful WhatsApp bot that can be controlled and paired through Telegram. This project provides seamless integration between Telegram and WhatsApp for automated messaging and bot control.
 
 ## 📋 Table of Contents
 
 - [Features](#features)
-- [Command Categories](#command-categories)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Configuration](#configuration)
@@ -19,88 +18,14 @@ A powerful WhatsApp bot that can be controlled and paired through Telegram with 
 
 ## ✨ Features
 
-- 🤖 **WhatsApp Automation** - 200+ commands for complete bot control
-- 📱 **Telegram Control Panel** - Control bot from Telegram with full command set
+- 🤖 **WhatsApp Automation** - Automated message handling and responses
+- 📱 **Telegram Control Panel** - Control and manage bot from Telegram
 - 🔗 **Pairing System** - Secure pairing mechanism between Telegram and WhatsApp
 - 💾 **Session Management** - Persistent session handling for WhatsApp connections
 - 🔐 **Authentication** - Secure token-based authentication
 - 📝 **Message Queue** - Reliable message delivery system
 - 🌐 **REST API** - Complete REST API for integration
 - 📊 **Logging** - Comprehensive logging and monitoring
-- 🎯 **Command Handler** - Advanced command processing system
-- 📈 **Analytics** - Track command usage and bot statistics
-
-## 📊 Command Categories (20+)
-
-### 👑 OWNER (50+ commands)
-`.restart` `.shutdown` `.reboot` `.updatebot` `.deploy` `.backup` `.restore` `.backupdb` `.restoredb` `.logs` `.clearlogs` and more...
-
-### ⚙️ SYSTEM (50+ commands)
-`.menu` `.help` `.ping` `.alive` `.status` `.runtime` `.uptime` `.speed` `.version` `.about` and more...
-
-### 👤 PROFILE (35+ commands)
-`.profile` `.setname` `.setbio` `.setage` `.avatar` `.rank` `.level` `.xp` `.badge` `.wallet` and more...
-
-### 👥 GROUP (50+ commands)
-`.groupinfo` `.grouplink` `.tagall` `.admins` `.kick` `.promote` `.demote` `.mute` `.antilink` and more...
-
-### 🔐 SECURITY (35+ commands)
-`.security` `.scan` `.fullscan` `.firewall` `.guard` `.shield` `.lock` `.verify` `.captcha` and more...
-
-### 🧠 AI (60+ commands)
-`.ai` `.chat` `.ask` `.gpt` `.codeai` `.imageai` `.imagine` `.art` `.draw` `.translateai` and more...
-
-### 🖼️ STICKER (20+ commands)
-`.sticker` `.s` `.attp` `.ttp` `.emojimix` `.toimg` `.trigger` `.wasted` `.wanted` and more...
-
-### 🎥 MEDIA (15+ commands)
-`.image` `.video` `.audio` `.removebg` `.enhance` `.hd` `.compress` `.blur` and more...
-
-### 👁️ VIEW ONCE (10+ commands)
-`.vv` `.readviewonce` `.viewonce` `.antiviewonce` `.saveviewonce` and more...
-
-### 📥 DOWNLOAD (25+ commands)
-`.play` `.song` `.ytmp3` `.ytmp4` `.tiktok` `.instagram` `.facebook` `.twitter` `.spotify` and more...
-
-### 🛠️ UTILITY (20+ commands)
-`.weather` `.time` `.date` `.calendar` `.reminder` `.timer` `.currency` `.translate` and more...
-
-### 🚀 DEVELOPER (20+ commands)
-`.eval` `.exec` `.terminal` `.shell` `.getfile` `.npm` `.gitpull` `.deploy` and more...
-
-### ☁️ CLOUD (20+ commands)
-`.upload` `.download` `.storage` `.backup` `.restore` `.deploy` `.host` `.server` and more...
-
-### 📚 EDUCATION (20+ commands)
-`.math` `.physics` `.chemistry` `.biology` `.history` `.quiz` `.exam` `.calculator` and more...
-
-### 🎨 DESIGN (20+ commands)
-`.logo` `.banner` `.poster` `.wallpaper` `.avatar` `.neon` `.glow` `.textpro` and more...
-
-### 🌐 INTERNET (20+ commands)
-`.ip` `.iplookup` `.dns` `.whois` `.website` `.domain` `.speedtest` and more...
-
-### 🔍 SEARCH (20+ commands)
-`.google` `.wiki` `.youtube` `.image` `.lyrics` `.movie` `.anime` `.github` and more...
-
-### 🏮 ANIME (20+ commands)
-`.waifu` `.neko` `.naruto` `.luffy` `.animequote` `.manga` `.cosplay` and more...
-
-### 🏦 BANK (20+ commands)
-`.bank` `.deposit` `.withdraw` `.transfer` `.loan` `.savings` `.invest` and more...
-
-### 💰 ECONOMY (20+ commands)
-`.wallet` `.daily` `.work` `.shop` `.buy` `.sell` `.gamble` `.lottery` and more...
-
-### 🎮 GAMES (20+ commands)
-`.tictactoe` `.hangman` `.guess` `.riddle` `.chess` `.roulette` `.slots` and more...
-
-### 🚫 BANNED (20+ commands)
-`.ban` `.unban` `.banlist` `.tempban` `.blacklist` `.warn` `.mute` and more...
-
----
-
-**Total: 200+ Commands**
 
 ## 📦 Requirements
 
@@ -137,7 +62,6 @@ TELEGRAM_CHAT_ID=your_telegram_chat_id
 # WhatsApp Configuration
 WHATSAPP_SESSION_NAME=simon-bot
 WHATSAPP_HEADLESS=true
-COMMAND_PREFIX=.
 
 # Database Configuration
 MONGODB_URI=mongodb://localhost:27017/simon-bot
@@ -152,10 +76,9 @@ NODE_ENV=development
 JWT_SECRET=your_jwt_secret_key
 API_KEY=your_api_key
 
-# Bot Information
-BOT_NAME=SIMON TECH BOT
-BOT_OWNER=SIMON TECH
-BOT_OWNER_NUMBER=09166265317
+# Logging
+LOG_LEVEL=info
+LOG_FILE=logs/bot.log
 ```
 
 ### 4. Start the Bot
@@ -190,86 +113,48 @@ npm start
 
 ### Telegram Commands
 
-- `/start` - Initialize bot
-- `/menu` - Show command categories
-- `/commands` - List all available commands
-- `/status` - Check bot status
-- `/pair` - Generate pairing code
-- `/help` - Show help message
-- `/category <name>` - Get commands by category
+- `/start` - Initialize bot and get pairing code
+- `/pair` - Display pairing code for WhatsApp
+- `/status` - Check bot and WhatsApp connection status
+- `/send <number> <message>` - Send WhatsApp message
+- `/help` - Show available commands
 
-### WhatsApp Commands
+### WhatsApp Messages
 
-Use the command prefix (default: `.`) to execute commands:
-
-```
-.menu           - Show menu
-.ping           - Check bot response
-.status         - Get bot status
-.help           - Show help
-.ai <query>     - Use AI features
-.sticker        - Create sticker
-.play <song>    - Download music
-.and many more...
-```
+The bot responds to incoming WhatsApp messages based on configured rules and AI responses.
 
 ## 🏗️ Architecture
 
 ```
 SIMON-TECH-EMPIRE
 ├── src/
-│   ├── config/              # Configuration files
-│   │   └── database.js
-│   ├── handlers/             # Command handlers
-│   │   └── commandHandler.js
-│   ├── services/             # Service layer
-│   │   ├── telegramService.js
-│   │   ├── whatsappService.js
-│   │   ├── databaseService.js
-│   │   └── pairingService.js
-│   ├── routes/               # API routes
-│   │   ├── api.js
-│   │   └── health.js
-│   ├── utils/                # Utility functions
-│   │   └── logger.js
-│   └── index.js              # Entry point
-├── .env.example              # Environment template
-├── package.json              # Dependencies
-├── README.md                 # Documentation
-└── LICENSE                   # MIT License
+│   ├── config/          # Configuration files
+│   ├── controllers/      # Business logic
+│   ├── services/         # Service layer
+│   ├── models/           # Database models
+│   ├── middleware/       # Express middleware
+│   ├── routes/           # API routes
+│   ├── utils/            # Utility functions
+│   └── index.js          # Entry point
+├── .env.example         # Environment template
+├── package.json         # Dependencies
+└── README.md            # This file
 ```
 
 ## 🔌 API Reference
 
-### Get All Commands
+### Pairing Endpoint
 
-**GET** `/api/commands`
+**GET** `/api/pair`
 
-Returns all available commands.
-
-**Response:**
-```json
-{
-  "success": true,
-  "commands": ["command1", "command2", ...],
-  "total": 200,
-  "categories": [...]
-}
-```
-
-### Get Commands by Category
-
-**GET** `/api/commands/:category`
-
-Returns commands from a specific category.
+Returns a unique pairing code to pair Telegram and WhatsApp.
 
 **Response:**
 ```json
 {
   "success": true,
-  "category": "OWNER",
-  "commands": [".restart", ".shutdown", ...],
-  "total": 50
+  "pairingCode": "PAIR-XXX-YYY-ZZZ",
+  "expiresIn": 300
 }
 ```
 
@@ -277,7 +162,7 @@ Returns commands from a specific category.
 
 **POST** `/api/send`
 
-Send a WhatsApp message.
+Send a message via WhatsApp.
 
 **Headers:**
 ```
@@ -292,6 +177,15 @@ Authorization: Bearer your_api_key
 }
 ```
 
+**Response:**
+```json
+{
+  "success": true,
+  "messageId": "msg_12345",
+  "timestamp": "2026-06-04T10:30:00Z"
+}
+```
+
 ### Get Status
 
 **GET** `/api/status`
@@ -302,12 +196,10 @@ Get bot and connection status.
 ```json
 {
   "success": true,
-  "status": {
-    "botStatus": "running",
-    "botName": "SIMON TECH BOT",
-    "uptime": 3600,
-    "commandsAvailable": 200
-  }
+  "botStatus": "running",
+  "whatsappConnected": true,
+  "telegramConnected": true,
+  "uptime": 3600
 }
 ```
 
@@ -335,20 +227,11 @@ This bot is for educational and authorized use only. Ensure you comply with What
 - [Telegram Bot API](https://core.telegram.org/bots/api)
 - [Node.js Documentation](https://nodejs.org/docs/)
 
-## 👨‍💻 Developer Information
+## 👨‍💻 Author
 
-```
-╔═══════════════════════════════╗
-     👨‍💻 DEVELOPER CREDITS
-╚═══════════════════════════════╝
+**Simon Tech Empire**
 
-👑 DEVELOPER: SIMON TECH
-📱 NUMBER: 09166265317
-📞 WHATSAPP: 09166265317
-🤖 BOT NAME: SIMON TECH BOT
-🚀 SYSTEM: MULTI DEVICE
-⚡ POWERED BY SIMON TECH EMPIRE
-```
+- GitHub: [@Simontechempire](https://github.com/Simontechempire)
 
 ---
 
