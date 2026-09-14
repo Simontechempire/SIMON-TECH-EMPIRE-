@@ -8,8 +8,7 @@
     "dev": "nodemon src/index.js",
     "test": "jest",
     "lint": "eslint src/",
-    "format": "prettier --write src/",
-    "postinstall": "node -e \"require('@vscode/ripgrep'); require('puppeteer').createBrowserFetcher().download('1160495')\""
+    "format": "prettier --write src/"
   },
   "keywords": [
     "whatsapp",
@@ -37,8 +36,7 @@
     "qrcode-terminal": "^0.12.0",
     "uuid": "^9.0.0",
     "express-rate-limit": "^6.7.0",
-    "node-cache": "^5.1.2",
-    "puppeteer": "^21.0.0"
+    "node-cache": "^5.1.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.22",
