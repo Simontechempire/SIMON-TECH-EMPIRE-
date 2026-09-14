@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: simon-bot
+    env: node
+    startCommand: npm start
+    envVars:
+      - key: PUPPETEER_SKIP_DOWNLOAD
+        value: "true"
+      - key: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD
+        value: "true"
+      - key: NODE_ENV
+        value: production
