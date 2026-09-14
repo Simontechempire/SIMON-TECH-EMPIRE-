@@ -8,7 +8,6 @@ const path = require('path');
 // Import services
 const TelegramService = require('./services/telegramService');
 const WhatsappService = require('./services/whatsappService');
-const DatabaseService = require('./services/databaseService');
 const Logger = require('./utils/logger');
 
 // Import routes
@@ -53,11 +52,6 @@ const HOST = process.env.HOST || 'localhost';
 
 const startServer = async () => {
   try {
-    // Connect to database
-    logger.info('Connecting to MongoDB...');
-    await DatabaseService.connect();
-    logger.info('MongoDB connected successfully');
-
     // Initialize Telegram service
     logger.info('Initializing Telegram service...');
     TelegramService.initialize();
@@ -82,7 +76,6 @@ const startServer = async () => {
 process.on('SIGINT', async () => {
   logger.info('Shutting down gracefully...');
   try {
-    await DatabaseService.disconnect();
     await WhatsappService.destroy();
     TelegramService.stop();
     process.exit(0);
