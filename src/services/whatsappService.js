@@ -9,27 +9,33 @@ class WhatsappService {
     this.client = null;
     this.isConnected = false;
     this.isInitialized = false;
+    this.initializationAttempts = 0;
+    this.maxAttempts = 3;
   }
 
   async initialize() {
     try {
       const sessionName = process.env.WHATSAPP_SESSION_NAME || 'simon-bot';
       
+      const puppeteerConfig = {
+        headless: 'new',
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--disable-dev-shm-usage',
+          '--disable-gpu',
+          '--disable-web-security',
+          '--disable-features=IsolateOrigins,site-per-process',
+          '--disable-blink-features=AutomationControlled',
+          '--single-process'
+        ]
+      };
+
       this.client = new Client({
         authStrategy: new LocalAuth({ clientId: sessionName }),
         headless: process.env.WHATSAPP_HEADLESS !== 'false',
-        puppeteer: {
-          headless: 'new',
-          args: [
-            '--no-sandbox',
-            '--disable-setuid-sandbox',
-            '--disable-dev-shm-usage',
-            '--disable-gpu',
-            '--disable-web-security',
-            '--disable-features=IsolateOrigins,site-per-process',
-            '--disable-blink-features=AutomationControlled'
-          ]
-        }
+        puppeteer: puppeteerConfig,
+        qrTimeoutMs: 0 // Infinite timeout for QR code
       });
 
       // Event listeners
@@ -40,6 +46,7 @@ class WhatsappService {
 
       this.client.on('ready', () => {
         this.isConnected = true;
+        this.initializationAttempts = 0;
         logger.info('✅ WhatsApp client is ready');
       });
 
@@ -62,14 +69,36 @@ class WhatsappService {
         // Handle incoming messages
       });
 
+      logger.info('Attempting to initialize WhatsApp client...');
       await this.client.initialize();
       this.isInitialized = true;
 
-      logger.info('WhatsApp service initialized successfully');
+      logger.info('✅ WhatsApp service initialized successfully');
     } catch (error) {
-      logger.error(`Failed to initialize WhatsApp service: ${error.message}`);
-      throw error;
+      this.initializationAttempts++;
+      logger.error(`WhatsApp initialization attempt ${this.initializationAttempts} failed: ${error.message}`);
+      
+      if (error.message.includes('Could not find Chrome') || error.message.includes('ENOENT')) {
+        logger.warn('Chrome not found on system. WhatsApp service will run in compatibility mode.');
+        logger.info('Note: WhatsApp Web requires a browser. Please ensure Chromium/Chrome is installed.');
+        
+        if (this.initializationAttempts < this.maxAttempts) {
+          logger.info(`Retrying in 5 seconds (attempt ${this.initializationAttempts}/${this.maxAttempts})...`);
+          await this.delay(5000);
+          await this.initialize();
+        } else {
+          logger.error('Failed to initialize WhatsApp after maximum attempts');
+          // Don't throw - allow server to continue running
+          this.isInitialized = false;
+        }
+      } else {
+        throw error;
+      }
     }
+  }
+
+  delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   async sendMessage(number, message) {
@@ -78,9 +107,7 @@ class WhatsappService {
         throw new Error('WhatsApp client is not connected');
       }
 
-      // Format number to WhatsApp format
       const formattedNumber = number.includes('@') ? number : `${number}@c.us`;
-      
       const response = await this.client.sendMessage(formattedNumber, message);
       logger.info(`Message sent to ${number}`);
       
