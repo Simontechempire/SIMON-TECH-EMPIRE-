@@ -26,9 +26,9 @@ class WhatsappService {
             '--disable-dev-shm-usage',
             '--disable-gpu',
             '--disable-web-security',
-            '--disable-features=IsolateOrigins,site-per-process'
-          ],
-          executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined
+            '--disable-features=IsolateOrigins,site-per-process',
+            '--disable-blink-features=AutomationControlled'
+          ]
         }
       });
 
