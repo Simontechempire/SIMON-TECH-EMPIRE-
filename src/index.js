@@ -56,9 +56,12 @@ const startServer = async () => {
     logger.info('Initializing Telegram service...');
     TelegramService.initialize();
 
-    // Initialize WhatsApp service
+    // Initialize WhatsApp service (non-blocking)
     logger.info('Initializing WhatsApp service...');
-    await WhatsappService.initialize();
+    WhatsappService.initialize().catch((error) => {
+      logger.error(`WhatsApp initialization error: ${error.message}`);
+      logger.info('Server will continue running without WhatsApp');
+    });
 
     // Start Express server
     app.listen(PORT, HOST, () => {
